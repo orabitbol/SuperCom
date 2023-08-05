@@ -22,13 +22,13 @@
         "firstName": "John",
         "middleName": "Doe",
         "lastName":"deep",
-        "socialSecurityNumber":"123456789",
+        "socialSecurityNumber":"0504123456",
         "gender":"male",
         "birthDate":"01/01/1980",
         "startDate":"01/01/2018",
         "endDate":"01/01/2020",
         "email":"exmaple@gmail.com",
-        "phone":"0547886421",
+        "phoneNumber":"0547886421",
         "picture":"https://www.w3schools.com/howto/img_avatar.png"
       },
       {
@@ -36,13 +36,13 @@
         "firstName": "Robert",
         "middleName": "Iron Man",
         "lastName":"Downey Jr",
-        "socialSecurityNumber":"987654321",
+        "socialSecurityNumber":"0505987654",
         "gender":"male",
         "birthDate":"01/01/1980",
         "startDate":"01/01/2018",
         "endDate":"01/01/2020",
         "email":"exmaple1@gmail.com",
-        "phone":"0501234567",
+        "phoneNumber":"0501234567",
         "picture":"https://www.w3schools.com/howto/img_avatar.png"
       }
     ]

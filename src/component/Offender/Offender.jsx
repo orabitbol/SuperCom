@@ -12,6 +12,9 @@ import "./offender.scss";
 const Offender = () => {
   const user = useSelector((state) => state.login.userDetails);
   const offenderList = useSelector(offenderListSelector);
+  const isDataFetched = useSelector(
+    (state) => state.offenderList.isDataFetched
+  );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,17 +34,19 @@ const Offender = () => {
     navigate("/create");
   };
   const logout = () => {
+    localStorage.clear();
     dispatch(logOut());
+
     navigate("/");
   };
+
   useEffect(() => {
-    if (offenderList === undefined) {
-      dispatch(getOffenderListFromApi());
-    }
-    if (offenderList !== undefined && offenderList.length === 0) {
+    if (!isDataFetched) {
       dispatch(getOffenderListFromApi());
     }
   }, []);
+
+  console.log("offenderList", offenderList);
 
   return (
     <div className="offender-container">

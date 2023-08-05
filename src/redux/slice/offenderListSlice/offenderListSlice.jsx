@@ -14,6 +14,7 @@ export const getOffenderListFromApi = createAsyncThunk(
 );
 const initialStateOfOffederList = {
   offenderList: [],
+  isDataFetched: false,
 };
 
 export const offenderListSlice = createSlice({
@@ -54,10 +55,18 @@ export const offenderListSlice = createSlice({
       .addCase(getOffenderListFromApi.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.offenderList = action.payload;
+        state.isDataFetched = true;
       })
       .addCase(getOffenderListFromApi.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+        state.isDataFetched = false;
+      })
+      .addCase(removeOffender, (state, action) => {
+        // Reset the isDataFetched flag when all offenders are deleted
+        if (state.offenderList.length === 1) {
+          state.isDataFetched = false;
+        }
       });
   },
 });
