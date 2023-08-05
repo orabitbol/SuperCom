@@ -15,7 +15,6 @@ const Login = () => {
   const handleLogin = () => {
     fetch("/src/data/data.json")
       .then((response) => {
-        console.log("response", response);
         return response.json();
       })
       .then((data) => {

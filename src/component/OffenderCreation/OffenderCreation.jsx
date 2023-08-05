@@ -75,7 +75,6 @@ const OffenderCreation = () => {
   const handlePictureChange = (event) => {
     setFormData({ ...formData, picture: event.target.files[0] });
     setSelectedPicture(URL.createObjectURL(event.target.files[0]));
-    console.log(event.target.files[0]);
   };
 
   const handleSubmit = async (event) => {
@@ -111,12 +110,10 @@ const OffenderCreation = () => {
         error.inner.forEach((err) => {
           newErrors[err.path] = err.message;
         });
-        console.log(newErrors);
         Object.entries(newErrors).forEach(([key, value]) => {
           array.push(value);
         });
-        console.log(array[array.length - 1]);
-        console.log(array);
+
         if (
           array[array.length - 1] !== undefined ||
           array[array.length - 1] >= -1
@@ -278,7 +275,10 @@ const OffenderCreation = () => {
         </div>
 
         <div className="wapper-form">
-          <label className="label-name">Picture (Upload)</label>
+          <label className="label-name">
+            Picture (Upload)
+            <label className="required">*</label>
+          </label>
           <label htmlFor="picture" className="custom-upload-button">
             Choose a Picture
           </label>

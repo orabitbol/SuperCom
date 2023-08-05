@@ -10,9 +10,7 @@ const EditOffender = () => {
   const today = new Date();
   const numberOfDaysToAdd = 3;
   const newDate = today.setDate(today.getDate() + numberOfDaysToAdd);
-  console.log(newDate, "newDate");
   const defaultValue = new Date(newDate).toISOString().split("T")[0];
-  console.log(defaultValue, "defaultValue");
 
   const [date, setDate] = useState(defaultValue);
 
@@ -126,12 +124,9 @@ const EditOffender = () => {
         error.inner.forEach((err) => {
           newErrors[err.path] = err.message;
         });
-        console.log(newErrors);
         Object.entries(newErrors).forEach(([key, value]) => {
           array.push(value);
         });
-        console.log(array[array.length - 1]);
-        console.log(array);
         if (
           array[array.length - 1] !== undefined ||
           array[array.length - 1] >= -1
@@ -142,10 +137,6 @@ const EditOffender = () => {
     }
   };
 
-  console.log(offender.programStartDate);
-  let data = new Date(offender.programStartDate);
-  // data = data.toISOString().split("T")[0];
-  console.log(data);
   return (
     <div className="edit-offender">
       <span className="offender-creation-title">Edit Offender</span>
@@ -234,7 +225,6 @@ const EditOffender = () => {
             <option value="">Select</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
-            <option value="other">Other</option>
           </select>
         </div>
 

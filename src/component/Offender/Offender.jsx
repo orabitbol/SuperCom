@@ -46,8 +46,6 @@ const Offender = () => {
     }
   }, []);
 
-  console.log("offenderList", offenderList);
-
   return (
     <div className="offender-container">
       <span className="offender-title">Offender List</span>
