@@ -53,6 +53,11 @@ const EditOffender = () => {
     socialSecurityNumber: yup
       .string()
       .required("Social security number is required"),
+    phoneNumber: yup
+      .string()
+      .matches(/^[0-9]{10}$/, "Invalid phone number")
+      .required("Phone number is required"),
+    email: yup.string().email("Invalid email").required("Email is required"),
     gender: yup.string().required("Gender is required"),
     birthDate: yup.date().required("Birth date is required"),
     programStartDate: yup.date().required("Program start date is required"),
@@ -68,19 +73,15 @@ const EditOffender = () => {
         "Program length should be a minimum of two months",
         function (endDate) {
           const startDate = this.resolve(yup.ref("programStartDate"));
-          if (!startDate || !endDate) return true;
+          if (!startDate || !endDate) return true; // Allow if either date is not set
 
-          const diffInMonths = Math.ceil(
-            Math.abs(endDate.getMonth() - startDate.getMonth()) + 1
-          );
-          return diffInMonths >= 3;
+          const diffInMilliseconds = endDate - startDate;
+          const diffInMonths =
+            diffInMilliseconds / (1000 * 60 * 60 * 24 * 30.44); // Average number of days in a month
+
+          return diffInMonths >= 2;
         }
       ),
-    email: yup.string().email("Invalid email").required("Email is required"),
-    phoneNumber: yup
-      .string()
-      .matches(/^[0-9]{10}$/, "Invalid phone number")
-      .required("Phone number is required"),
     picture: yup.mixed().required("Picture is required"),
   });
 
