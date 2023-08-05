@@ -1,2 +1,2 @@
-npm install
-And you're ready to go
+npm install,
+and you're ready to go
