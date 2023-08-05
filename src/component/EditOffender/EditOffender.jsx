@@ -7,6 +7,19 @@ import { offenderSelector } from "../../redux/slice/editOffender/editOffender";
 import { editOffender } from "../../redux/slice/offenderListSlice/offenderListSlice";
 import "./editOffender.scss";
 const EditOffender = () => {
+  const today = new Date();
+  const numberOfDaysToAdd = 3;
+  const newDate = today.setDate(today.getDate() + numberOfDaysToAdd);
+  console.log(newDate, "newDate");
+  const defaultValue = new Date(newDate).toISOString().split("T")[0];
+  console.log(defaultValue, "defaultValue");
+
+  const [date, setDate] = useState(defaultValue);
+
+  const handleDateChange = (event) => {
+    setDate(event.target.value);
+  };
+
   const offender = useSelector(offenderSelector);
 
   const dispatch = useDispatch();
@@ -20,13 +33,13 @@ const EditOffender = () => {
     socialSecurityNumber: offender.socialSecurityNumber || "",
     gender: offender.gender || "",
     birthDate: offender.birthDate
-      ? new Date(offender.birthDate).toISOString()
+      ? new Date(offender.birthDate).toISOString().split("T")[0]
       : "",
     programStartDate: offender.programStartDate
-      ? new Date(offender.programStartDate)
+      ? new Date(offender.programStartDate).toISOString().split("T")[0]
       : "",
     programEndDate: offender.programEndDate
-      ? new Date(offender.programEndDate)
+      ? new Date(offender.programEndDate).toISOString().split("T")[0]
       : "",
     email: offender.email || "",
     phoneNumber: offender.phoneNumber || "",
@@ -129,6 +142,10 @@ const EditOffender = () => {
     }
   };
 
+  console.log(offender.programStartDate);
+  let data = new Date(offender.programStartDate);
+  // data = data.toISOString().split("T")[0];
+  console.log(data);
   return (
     <div className="edit-offender">
       <span className="offender-creation-title">Edit Offender</span>
