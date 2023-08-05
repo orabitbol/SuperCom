@@ -71,9 +71,11 @@ const OffenderCreation = () => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
-
+  const [selectedPicture, setSelectedPicture] = useState(null);
   const handlePictureChange = (event) => {
     setFormData({ ...formData, picture: event.target.files[0] });
+    setSelectedPicture(URL.createObjectURL(event.target.files[0]));
+    console.log(event.target.files[0]);
   };
 
   const handleSubmit = async (event) => {
@@ -131,7 +133,10 @@ const OffenderCreation = () => {
       <form onSubmit={handleSubmit} className="edit-form">
         <div className="wapper-form">
           <div className="position-field">
-            <label className="label-name">First Name</label>
+            <div className="wapper">
+              <label className="label-name">First Name</label>
+              <label className="required">*</label>
+            </div>
             <input
               type="text"
               id="firstName"
@@ -143,6 +148,7 @@ const OffenderCreation = () => {
           </div>
           <div className="position-field">
             <label className="label-name">Middle Name</label>
+
             <input
               type="text"
               id="middleName"
@@ -155,7 +161,10 @@ const OffenderCreation = () => {
         </div>
         <div className="wapper-form">
           <div className="position-field">
-            <label className="label-name">Last Name</label>
+            <div className="wapper">
+              <label className="label-name">Last Name</label>
+              <label className="required">*</label>
+            </div>
             <input
               type="text"
               id="lastName"
@@ -167,7 +176,10 @@ const OffenderCreation = () => {
           </div>
 
           <div className="position-field">
-            <label className="label-name">Social Security Number</label>
+            <div className="wapper">
+              <label className="label-name">Social Security Number</label>
+              <label className="required">*</label>
+            </div>
             <input
               type="text"
               id="socialSecurityNumber"
@@ -180,7 +192,10 @@ const OffenderCreation = () => {
         </div>
         <div className="wapper-form">
           <div className="position-field">
-            <label className="label-name">Phone Number</label>
+            <div className="wapper">
+              <label className="label-name">Phone Number</label>
+              <label className="required">*</label>
+            </div>
             <input
               type="text"
               id="phoneNumber"
@@ -191,7 +206,10 @@ const OffenderCreation = () => {
             />
           </div>
           <div className="position-field">
-            <label className="label-name">Email</label>
+            <div className="wapper">
+              <label className="label-name">Email</label>
+              <label className="required">*</label>
+            </div>
             <input
               type="email"
               id="email"
@@ -202,7 +220,10 @@ const OffenderCreation = () => {
           </div>
         </div>
         <div className="wapper-form">
-          <label className="label-name">Gender</label>
+          <div className="wapper">
+            <label className="label-name">Gender</label>
+            <label className="required">*</label>
+          </div>
           <select
             id="gender"
             name="gender"
@@ -217,7 +238,10 @@ const OffenderCreation = () => {
         </div>
 
         <div className="wapper-form">
-          <label className="label-name">Birth Date</label>
+          <div className="wapper">
+            <label className="label-name">Birth Date</label>
+            <label className="required">*</label>
+          </div>
           <input
             type="date"
             id="birthDate"
@@ -227,7 +251,10 @@ const OffenderCreation = () => {
           />
         </div>
         <div className="wapper-form">
-          <label className="label-name">Program Start Date</label>
+          <div className="wapper">
+            <label className="label-name">Program Start Date</label>
+            <label className="required">*</label>
+          </div>
           <input
             type="date"
             id="programStartDate"
@@ -237,7 +264,10 @@ const OffenderCreation = () => {
           />
         </div>
         <div className="wapper-form">
-          <label className="label-name">Program End Date</label>
+          <div className="wapper">
+            <label className="label-name">Program End Date</label>
+            <label className="required">*</label>
+          </div>
           <input
             type="date"
             id="programEndDate"
@@ -260,6 +290,14 @@ const OffenderCreation = () => {
             onChange={handlePictureChange}
           />
         </div>
+        {selectedPicture !== null && (
+          <img
+            id="previewImage"
+            style={{ height: "40px", width: "40px" }}
+            src={selectedPicture}
+            alt="Preview"
+          />
+        )}
         <div className="error-field">{errors && <p>{errors}</p>}</div>
         <div className="position-button">
           <button className="button-1" type="submit">
