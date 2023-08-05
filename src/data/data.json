@@ -1,0 +1,49 @@
+    {
+    "users": [
+      {
+        "id": 1,
+        "username": "admin",
+        "password": "112233",
+        "role": "A"
+  
+      },
+      {
+        "id": 2,
+        "username": "user",
+        "password": "12345",
+        "role": "B"
+    
+      }
+     
+    ],
+    "offendersList":[
+      {
+        "id": 10,
+        "firstName": "John",
+        "middleName": "Doe",
+        "lastName":"deep",
+        "socialSecurityNumber":"123456789",
+        "gender":"male",
+        "birthDate":"01/01/1980",
+        "startDate":"01/01/2018",
+        "endDate":"01/01/2020",
+        "email":"exmaple@gmail.com",
+        "phone":"0547886421",
+        "picture":"https://www.w3schools.com/howto/img_avatar.png"
+      },
+      {
+        "id": 11,
+        "firstName": "Robert",
+        "middleName": "Iron Man",
+        "lastName":"Downey Jr",
+        "socialSecurityNumber":"987654321",
+        "gender":"male",
+        "birthDate":"01/01/1980",
+        "startDate":"01/01/2018",
+        "endDate":"01/01/2020",
+        "email":"exmaple1@gmail.com",
+        "phone":"0501234567",
+        "picture":"https://www.w3schools.com/howto/img_avatar.png"
+      }
+    ]
+  }
