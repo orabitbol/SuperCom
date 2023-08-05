@@ -58,10 +58,11 @@ const OffenderCreation = () => {
           const startDate = this.resolve(yup.ref("programStartDate"));
           if (!startDate || !endDate) return true; // Allow if either date is not set
 
-          const diffInMonths = Math.ceil(
-            Math.abs(endDate.getMonth() - startDate.getMonth()) + 1
-          );
-          return diffInMonths >= 3;
+          const diffInMilliseconds = endDate - startDate;
+          const diffInMonths =
+            diffInMilliseconds / (1000 * 60 * 60 * 24 * 30.44); // Average number of days in a month
+
+          return diffInMonths >= 2;
         }
       ),
     picture: yup.mixed().required("Picture is required"),
