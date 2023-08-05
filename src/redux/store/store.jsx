@@ -5,7 +5,7 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
 import editOffenderReducer from "../slice/editOffender/editOffender";
-// import { persistStore } from "redux-persist";
+
 const persistConfig = {
   key: "root",
   version: 1,

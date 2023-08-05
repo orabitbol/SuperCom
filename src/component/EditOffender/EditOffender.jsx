@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import * as yup from "yup";
 import { offenderSelector } from "../../redux/slice/editOffender/editOffender";
 import { editOffender } from "../../redux/slice/offenderListSlice/offenderListSlice";
-
+import "./editOffender.scss";
 const EditOffender = () => {
   const offender = useSelector(offenderSelector);
 
@@ -32,7 +32,8 @@ const EditOffender = () => {
     phoneNumber: offender.phoneNumber || "",
     picture: offender.picture || null,
   });
-  const [errors, setErrors] = useState({});
+
+  const [errors, setErrors] = useState("");
 
   const schema = yup.object().shape({
     firstName: yup.string().required("First name is required"),
@@ -106,145 +107,175 @@ const EditOffender = () => {
       navigate("/offender");
       alert("Offender data submitted successfully!");
     } catch (error) {
+      let array = [];
       if (error instanceof yup.ValidationError) {
         const newErrors = {};
         error.inner.forEach((err) => {
           newErrors[err.path] = err.message;
         });
-        setErrors(newErrors);
+        console.log(newErrors);
+        Object.entries(newErrors).forEach(([key, value]) => {
+          array.push(value);
+        });
+        console.log(array[array.length - 1]);
+        console.log(array);
+        if (
+          array[array.length - 1] !== undefined ||
+          array[array.length - 1] >= -1
+        ) {
+          setErrors(array[0]);
+        }
       }
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="firstName">First Name:</label>
-        <input
-          type="text"
-          id="firstName"
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="middleName">Middle Name:</label>
-        <input
-          type="text"
-          id="middleName"
-          name="middleName"
-          value={formData.middleName}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="lastName">Last Name:</label>
-        <input
-          type="text"
-          id="lastName"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="socialSecurityNumber">Social Security Number:</label>
-        <input
-          type="text"
-          id="socialSecurityNumber"
-          name="socialSecurityNumber"
-          value={formData.socialSecurityNumber}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="gender">Gender:</label>
-        <select
-          id="gender"
-          name="gender"
-          value={formData.gender}
-          onChange={handleChange}
-        >
-          <option value="">Select</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <div>
-        <label htmlFor="birthDate">Birth Date:</label>
-        <input
-          type="date"
-          id="birthDate"
-          name="birthDate"
-          value={formData.birthDate}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="programStartDate">Program Start Date:</label>
-        <input
-          type="date"
-          id="programStartDate"
-          name="programStartDate"
-          value={formData.programStartDate}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="programEndDate">Program End Date:</label>
-        <input
-          type="date"
-          id="programEndDate"
-          name="programEndDate"
-          value={formData.programEndDate}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="phoneNumber">Phone Number:</label>
-        <input
-          type="text"
-          id="phoneNumber"
-          name="phoneNumber"
-          value={formData.phoneNumber}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="picture">Picture (Upload):</label>
-        <input
-          type="file"
-          id="picture"
-          name="picture"
-          onChange={handlePictureChange}
-        />
-      </div>
-      <div>
-        {errors.firstName && <p>{errors.firstName}</p>}
-        {errors.lastName && <p>{errors.lastName}</p>}
-        {errors.socialSecurityNumber && <p>{errors.socialSecurityNumber}</p>}
-        {errors.gender && <p>{errors.gender}</p>}
-        {errors.birthDate && <p>{errors.birthDate}</p>}
-        {errors.programStartDate && <p>{errors.programStartDate}</p>}
-        {errors.programEndDate && <p>{errors.programEndDate}</p>}
-        {errors.email && <p>{errors.email}</p>}
-        {errors.phoneNumber && <p>{errors.phoneNumber}</p>}
-        {errors.picture && <p>{errors.picture}</p>}
-      </div>
-      <button type="submit">Submit</button>
-    </form>
+    <div className="edit-offender">
+      <span className="offender-creation-title">Edit Offender</span>
+      <form onSubmit={handleSubmit} className="edit-form">
+        <div className="wapper-form">
+          <div className="position-field">
+            <label className="label-name">First Name</label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              className="edit-input-name"
+              value={formData.firstName}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="position-field">
+            <label className="label-name">Middle Name</label>
+            <input
+              type="text"
+              id="middleName"
+              name="middleName"
+              className="edit-input-name"
+              value={formData.middleName}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="wapper-form">
+          <div className="position-field">
+            <label className="label-name">Last Name</label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              className="edit-input-name"
+              value={formData.lastName}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="position-field">
+            <label className="label-name">Social Security Number</label>
+            <input
+              type="text"
+              id="socialSecurityNumber"
+              name="socialSecurityNumber"
+              className="edit-input-name"
+              value={formData.socialSecurityNumber}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="wapper-form">
+          <div className="position-field">
+            <label className="label-name">Phone Number</label>
+            <input
+              type="text"
+              id="phoneNumber"
+              name="phoneNumber"
+              className="edit-input-name"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="position-field">
+            <label className="label-name">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="wapper-form">
+          <label className="label-name">Gender</label>
+          <select
+            id="gender"
+            name="gender"
+            className="edit-input-gender"
+            value={formData.gender}
+            onChange={handleChange}
+          >
+            <option value="">Select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div className="wapper-form">
+          <label className="label-name">Birth Date</label>
+          <input
+            type="date"
+            id="birthDate"
+            name="birthDate"
+            value={formData.birthDate}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="wapper-form">
+          <label className="label-name">Program Start Date</label>
+          <input
+            type="date"
+            id="programStartDate"
+            name="programStartDate"
+            value={formData.programStartDate}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="wapper-form">
+          <label className="label-name">Program End Date</label>
+          <input
+            type="date"
+            id="programEndDate"
+            name="programEndDate"
+            value={formData.programEndDate}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="wapper-form">
+          <label className="label-name">Picture (Upload)</label>
+          <label htmlFor="picture" className="custom-upload-button">
+            Choose a Picture
+          </label>
+          <input
+            type="file"
+            id="picture"
+            name="picture"
+            className="edit-input-picture"
+            onChange={handlePictureChange}
+          />
+        </div>
+        <div className="error-field">{errors && <p>{errors}</p>}</div>
+        <div className="position-button">
+          <button className="button-1" type="submit">
+            Submit
+          </button>
+          <button className="button-1" onClick={() => navigate("/offender")}>
+            Back
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 export default EditOffender;

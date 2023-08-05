@@ -12,7 +12,6 @@ export const editOffender = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { setOffender } = editOffender.actions;
 
 export default editOffender.reducer;

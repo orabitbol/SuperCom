@@ -28,6 +28,5 @@ export default loginSlice.reducer;
 const userLogin = (state) => state.login.isAuth;
 
 export const autoSelector = createSelector([userLogin], (userLogin) => {
-  console.log("userLogin", userLogin);
   return userLogin;
 });

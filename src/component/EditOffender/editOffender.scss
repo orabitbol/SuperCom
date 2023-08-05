@@ -1,0 +1,57 @@
+.edit-offender{
+    height: 700px;
+    width: 700px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+
+    .offender-creation-title {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        font-size: 24px;
+        font-weight: 700;
+    }
+    
+    .edit-form{
+        display: flex;
+        flex-direction: column;
+
+        .wapper-form{
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-top: 10px;
+
+            .edit-input-picture{
+                position: relative;
+                left: 126px;
+            }
+            .position-field{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+
+                .label-name{
+                    display: flex;
+                    flex-direction: column;                 
+                }
+            }
+        }
+        .error-field{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            color: red;
+            font-size: 16px;
+            margin-top: 32px;
+            
+        }
+    }
+}

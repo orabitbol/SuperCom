@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logIn } from "../../redux/slice/auto/loginSlice";
 import "./Login.scss";
+
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState("");
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -22,7 +24,7 @@ const Login = () => {
           dispatch(logIn(user));
           navigate("/offender");
         } else {
-          alert("Invalid username or password");
+          setErrors("Invalid username or password");
         }
       })
       .catch((error) => {
@@ -47,6 +49,7 @@ const Login = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
+      <div className="error-field">{errors && <p>{errors}</p>}</div>
       <button className="login-button" onClick={handleLogin}>
         Login
       </button>

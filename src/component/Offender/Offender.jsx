@@ -55,7 +55,11 @@ const Offender = () => {
                 </span>
                 <div className="offender-actions">
                   <button
-                    className="offender-button"
+                    className={
+                      user.role !== "A"
+                        ? "offender-disabled"
+                        : "offender-button"
+                    }
                     disabled={user.role !== "A" ? true : false}
                     onClick={() => handleEditOffender(offender.id)}
                   >

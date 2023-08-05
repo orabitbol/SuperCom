@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { setOffendersList } from "../../redux/slice/offenderListSlice/offenderListSlice";
 import { offenderListSelector } from "../../redux/slice/offenderListSlice/offenderListSlice";
 import "./OffenderCreation.scss";
+import "../EditOffender/EditOffender.scss";
 const OffenderCreation = () => {
   const offenderList = useSelector(offenderListSelector);
 
@@ -26,7 +27,7 @@ const OffenderCreation = () => {
     picture: null,
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState("");
 
   const schema = yup.object().shape({
     firstName: yup.string().required("First name is required"),
@@ -35,6 +36,11 @@ const OffenderCreation = () => {
     socialSecurityNumber: yup
       .string()
       .required("Social security number is required"),
+    phoneNumber: yup
+      .string()
+      .matches(/^[0-9]{10}$/, "Invalid phone number")
+      .required("Phone number is required"),
+    email: yup.string().email("Invalid email").required("Email is required"),
     gender: yup.string().required("Gender is required"),
     birthDate: yup.date().required("Birth date is required"),
     programStartDate: yup.date().required("Program start date is required"),
@@ -58,11 +64,6 @@ const OffenderCreation = () => {
           return diffInMonths >= 3;
         }
       ),
-    email: yup.string().email("Invalid email").required("Email is required"),
-    phoneNumber: yup
-      .string()
-      .matches(/^[0-9]{10}$/, "Invalid phone number")
-      .required("Phone number is required"),
     picture: yup.mixed().required("Picture is required"),
   });
 
@@ -102,81 +103,122 @@ const OffenderCreation = () => {
       navigate("/offender");
       alert("Offender data submitted successfully!");
     } catch (error) {
+      let array = [];
       if (error instanceof yup.ValidationError) {
         const newErrors = {};
         error.inner.forEach((err) => {
           newErrors[err.path] = err.message;
         });
-        setErrors(newErrors);
+        console.log(newErrors);
+        Object.entries(newErrors).forEach(([key, value]) => {
+          array.push(value);
+        });
+        console.log(array[array.length - 1]);
+        console.log(array);
+        if (
+          array[array.length - 1] !== undefined ||
+          array[array.length - 1] >= -1
+        ) {
+          setErrors(array[0]);
+        }
       }
     }
   };
 
   return (
-    <div className="offender-creation-container">
+    <div className="edit-offender">
       <span className="offender-creation-title">Create Offender</span>
-      <form className="offender-creation-form" onSubmit={handleSubmit}>
-        <div className="offender-top-part">
-          <input
-            className="offender-creation-input"
-            type="text"
-            id="firstName"
-            name="firstName"
-            placeholder="First Name"
-            value={formData.firstName}
-            onChange={handleChange}
-          />
-
-          <input
-            className="offender-creation-input"
-            placeholder="Middle Name"
-            type="text"
-            id="middleName"
-            name="middleName"
-            value={formData.middleName}
-            onChange={handleChange}
-          />
+      <form onSubmit={handleSubmit} className="edit-form">
+        <div className="wapper-form">
+          <div className="position-field">
+            <label className="label-name">First Name</label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              className="edit-input-name"
+              value={formData.firstName}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="position-field">
+            <label className="label-name">Middle Name</label>
+            <input
+              type="text"
+              id="middleName"
+              name="middleName"
+              className="edit-input-name"
+              value={formData.middleName}
+              onChange={handleChange}
+            />
+          </div>
         </div>
+        <div className="wapper-form">
+          <div className="position-field">
+            <label className="label-name">Last Name</label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              className="edit-input-name"
+              value={formData.lastName}
+              onChange={handleChange}
+            />
+          </div>
 
-        <div className="offender-bottom-part">
-          <input
-            className="offender-creation-input"
-            type="text"
-            placeholder="Last Name"
-            id="lastName"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-          />
-          <input
-            className="offender-creation-input"
-            type="text"
-            placeholder="Security Number"
-            id="socialSecurityNumber"
-            name="socialSecurityNumber"
-            value={formData.socialSecurityNumber}
-            onChange={handleChange}
-          />
+          <div className="position-field">
+            <label className="label-name">Social Security Number</label>
+            <input
+              type="text"
+              id="socialSecurityNumber"
+              name="socialSecurityNumber"
+              className="edit-input-name"
+              value={formData.socialSecurityNumber}
+              onChange={handleChange}
+            />
+          </div>
         </div>
-
-        <div className="offender-gender-birthdate">
-          <label className="offender-creation-label">Gender:</label>
+        <div className="wapper-form">
+          <div className="position-field">
+            <label className="label-name">Phone Number</label>
+            <input
+              type="text"
+              id="phoneNumber"
+              name="phoneNumber"
+              className="edit-input-name"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="position-field">
+            <label className="label-name">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="wapper-form">
+          <label className="label-name">Gender</label>
           <select
-            className="offender-creation-input"
             id="gender"
             name="gender"
+            className="edit-input-gender"
             value={formData.gender}
             onChange={handleChange}
           >
             <option value="">Select</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
-            <option value="other">Other</option>
           </select>
+        </div>
 
-          <label className="offender-creation-label">Birth Date:</label>
+        <div className="wapper-form">
+          <label className="label-name">Birth Date</label>
           <input
-            className="offender-creation-input"
             type="date"
             id="birthDate"
             name="birthDate"
@@ -184,11 +226,9 @@ const OffenderCreation = () => {
             onChange={handleChange}
           />
         </div>
-
-        <div className="offender-wapper">
-          <label className="offender-creation-label">Program Start Date:</label>
+        <div className="wapper-form">
+          <label className="label-name">Program Start Date</label>
           <input
-            className="offender-creation-input"
             type="date"
             id="programStartDate"
             name="programStartDate"
@@ -196,10 +236,9 @@ const OffenderCreation = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="offender-wapper">
-          <label className="offender-creation-label">Program End Date:</label>
+        <div className="wapper-form">
+          <label className="label-name">Program End Date</label>
           <input
-            className="offender-creation-input"
             type="date"
             id="programEndDate"
             name="programEndDate"
@@ -207,70 +246,29 @@ const OffenderCreation = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="offender-wapper">
-          <label className="offender-creation-label">Email:</label>
-          <input
-            className="offender-creation-input"
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="offender-wapper">
-          <label className="offender-creation-label">Phone Number:</label>
-          <input
-            className="offender-creation-input"
-            type="text"
-            id="phoneNumber"
-            name="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="offender-wapper">
-          <label className="offender-creation-label">Picture (Upload):</label>
+
+        <div className="wapper-form">
+          <label className="label-name">Picture (Upload)</label>
+          <label htmlFor="picture" className="custom-upload-button">
+            Choose a Picture
+          </label>
           <input
             type="file"
             id="picture"
             name="picture"
+            className="edit-input-picture"
             onChange={handlePictureChange}
-            className="offender-creation-file-input"
           />
-          <label htmlFor="picture" className="offender-creation-file-label">
-            Choose a File
-          </label>
-          {formData.picture && (
-            <p className="offender-creation-file-name">
-              {formData.picture.name}
-            </p>
-          )}
-          {errors.picture && (
-            <p className="offender-creation-error">{errors.picture}</p>
-          )}
         </div>
-        <div className="offender-creation-error">
-          {errors.firstName && <p className="error-text">{errors.firstName}</p>}
-          {errors.lastName && <p className="error-text">{errors.lastName}</p>}
-          {errors.socialSecurityNumber && (
-            <p className="error-text">{errors.socialSecurityNumber}</p>
-          )}
-          {errors.gender && <p className="error-text">{errors.gender}</p>}
-          {errors.birthDate && <p className="error-text">{errors.birthDate}</p>}
-          {errors.programStartDate && (
-            <p className="error-text">{errors.programStartDate}</p>
-          )}
-          {errors.programEndDate && (
-            <p className="error-text">{errors.programEndDate}</p>
-          )}
-          {errors.email && <p className="error-text">{errors.email}</p>}
-          {errors.phoneNumber && (
-            <p className="error-text">{errors.phoneNumber}</p>
-          )}
-          {errors.picture && <p className="error-text">{errors.picture}</p>}
+        <div className="error-field">{errors && <p>{errors}</p>}</div>
+        <div className="position-button">
+          <button className="button-1" type="submit">
+            Submit
+          </button>
+          <button className="button-1" onClick={() => navigate("/offender")}>
+            Back
+          </button>
         </div>
-        <button type="submit">Submit</button>
       </form>
     </div>
   );

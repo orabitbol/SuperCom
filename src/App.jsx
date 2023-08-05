@@ -9,9 +9,8 @@ import EditOffender from "./component/EditOffender/EditOffender";
 
 const App = () => {
   const isAuth = useSelector(autoSelector);
-  console.log("user", isAuth);
   return (
-    <div className="App">
+    <div className="app">
       {isAuth ? (
         <Routes>
           <Route path="/" element={<Navigate to="/offender" />} />
